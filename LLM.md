@@ -132,16 +132,57 @@ Amélioration technique (Double Fetch)
 
     Solution : Implémentation d'un second useEffect à l'intérieur de PokemonDetail pour récupérer les images et stats spécifiques via l'URL du Pokémon sélectionné.
 
-3. Bilan de l'utilisation du LLM
+Étape 6 – Expérience Utilisateur, Persistance et Collection
+
+Objectif : Transformer le Pokédex en une application robuste capable de mémoriser les préférences de l'utilisateur (favoris, recherche) et de gérer des états complexes.
+1. Concepts et "Premiers Principes"
+
+    Persistance Locale (localStorage) : Utilisation de la mémoire du navigateur pour stocker des données sous forme de chaînes de caractères (clés/valeurs) qui survivent au rafraîchissement de la page.
+
+    Sérialisation JSON : Nécessité de transformer les tableaux d'objets en texte via JSON.stringify() pour l'écriture, et de les reconvertir via JSON.parse() pour la lecture.
+
+    Logique de "Toggle" (Bascule) : Implémentation d'une fonction saveFavorite qui vérifie l'existence d'une donnée (via .some()) pour décider d'ajouter ou de supprimer un élément (via .filter()).
+
+    Source de Vérité Dynamique : Capacité de l'interface à basculer sa source de données entre la liste totale (pokemonList) et la collection privée (favorites).
+
+2. Fonctionnalités implémentées
+
+    Système de Favoris : Ajout d'un bouton interactif dans la vue détaillée permettant d'ajouter/retirer un Pokémon de sa collection personnelle.
+
+    Bouton de Navigation "Mes Favoris" : Intégration d'un bouton en haut à droite de l'application pour isoler et afficher uniquement les coups de cœur de l'utilisateur.
+
+    Sauvegarde de Recherche : Persistance du dernier terme saisi dans la barre de recherche via useEffect pour conserver le contexte utilisateur.
+
+    Loader & Gestion d'Erreurs : Retour visuel pendant les appels API et capture des échecs réseau pour éviter le crash de l'interface.
+
+3. Gestion d'erreurs critiques et Débogage (Apprentissages)
+
+Durant cette étape, le binôme a dû résoudre plusieurs problèmes complexes :
+
+    Syntaxe des Template Literals : Correction de l'erreur des guillemets simples (' ') remplacés par des backticks (` `) pour permettre l'interpolation des variables ${pokemonId} dans les URLs d'images.
+
+    Extraction d'ID Robuste : Utilisation de .split('/').filter(Boolean).pop() pour garantir l'extraction correcte de l'identifiant Pokémon, peu importe la présence d'un slash final dans l'URL de l'API.
+
+    Destructuring des Props : Résolution d'un crash de rendu dans PokemonDetail.jsx par l'ajout des arguments manquants (onToggleFavorite, isFavorite) dans la définition du composant.
+
+    Correction de Typo et Casse : Rectification de variables mal orthographiées (ex: fasle au lieu de false) et harmonisation de la casse des States (ex: setShowFavoritesOnly).
+
+4. Améliorations de l'UI (Interface Utilisateur)
+
+    Accessibilité : Correction du contraste des badges de "Types" (texte blanc sur fond noir) pour une meilleure lisibilité.
+
+    Positionnement Fixe : Utilisation de position: fixed pour le bouton favori afin qu'il reste accessible en bas de l'écran lors du défilement des détails.
+
+    Bilan de l'utilisation du LLM
 
 L'assistant a été utilisé strictement comme partenaire de réflexion et non comme générateur de code "presse-bouton".
 
-    Respect des rôles : Le Guide a reformulé les explications de l'IA (concepts de props, state, useEffect) avant que le Développeur ne code.
+Respect des rôles : Le Guide a reformulé les explications de l'IA (concepts de props, state, useEffect) avant que le Développeur ne code.
 
-    Compréhension : Chaque bloc de code a été précédé d'une explication théorique ("Pourquoi on fait ça ?").
+Compréhension : Chaque bloc de code a été précédé d'une explication théorique ("Pourquoi on fait ça ?").
 
-    Progression : Les étapes imposées ont été validées dans l'ordre, avec une vérification systématique (Console, puis Affichage).
+Progression : Les étapes imposées ont été validées dans l'ordre, avec une vérification systématique (Console, puis Affichage).
 
-    Documentation : Les erreurs rencontrées (oubli d'import, syntaxe, fichiers manquants) ont été résolues via l'analyse du LLM, renforçant la compétence de débogage.
+Documentation : Les erreurs rencontrées (oubli d'import, syntaxe, fichiers manquants) ont été résolues via l'analyse du LLM, renforçant la compétence de débogage.
 
 État final du projet : Fonctionnel, respectant les contraintes React modernes (Hooks), avec une structure de fichiers propre.
